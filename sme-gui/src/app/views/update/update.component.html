@@ -1,0 +1,32 @@
+<div class="row mt-5">
+    <div class="col-5 mx-auto">
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>{{ts.name}}</mat-card-title>
+                <mat-card-subtitle>Update</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+                <form>
+                    <div class="row mx-1 mt-4">
+                        <div class="col">
+                            <mat-form-field style="width: 100%;">
+                                <mat-label>Target System Name</mat-label>
+                                <input matInput placeholder="Ex. Test System" [value]='ts.name'>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row mx-1 mt-2">
+                        <div class="col">
+                            <button mat-raised-button (click)="openSnackBar('Not Implemented','Close', 3)">Change system models</button>
+                        </div>
+                    </div>
+                </form>
+
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-button [routerLink]="'home'">Close</button>
+                <button mat-button color='primary' class="ml-2" (click)="openSnackBar('Not Implemented','Close', 3)">Update</button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</div>

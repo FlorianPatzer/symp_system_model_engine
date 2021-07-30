@@ -1,0 +1,10 @@
+PREFIX : <http://iosb.fraunhofer.de/ICS-Security#>
+SELECT ?firewall1 ?firewall2 ?f1 ?f2 WHERE {
+    ?firewall1 :firewallConfig ?config1.
+    ?config1 :flow ?f1.
+    ?firewall2 :firewallConfig ?config2.
+    ?config2 :flow ?f2.
+    ?tcpFlow1 :usesFlow ?f1.
+    ?tcpFlow2 :usesFlow ?f2.
+    ?tcpFlow1 :inConflictWith ?tcpFlow2.
+}

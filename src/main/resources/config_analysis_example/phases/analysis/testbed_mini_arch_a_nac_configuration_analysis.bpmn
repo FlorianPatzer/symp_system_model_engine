@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_0gyjsii" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.4.0">
+  <bpmn:process id="Process_064j4h6" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1" name="Start">
+      <bpmn:outgoing>Flow_09evvey</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:serviceTask id="Activity_0h65d9i" name="Ontology Upload Task" camunda:resultVariable="ontology1" camunda:type="external" camunda:topic="ontupload">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property id="fraunhofer-type" name="type" value="ONT" />
+        </camunda:properties>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="TestPrefix_0d7mces">ftp://ftp/upload/Activity_03o93mm.owl</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_09evvey</bpmn:incoming>
+      <bpmn:outgoing>Flow_0o611qf</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_09evvey" sourceRef="StartEvent_1" targetRef="Activity_0h65d9i" />
+    <bpmn:serviceTask id="Activity_0z4djel" name="Label Conflicts" camunda:resultVariable="swrl2" camunda:type="external" camunda:topic="swrl">
+      <bpmn:extensionElements>
+        <camunda:properties>
+          <camunda:property id="fraunhofer-type" name="type" value="SWRL" />
+        </camunda:properties>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="TestPrefix_2g2469r">:AllowedTcpFlow(?atf)^:DisallowedTcpFlow(?dtf)^
+:AllowedIpV4Flow(?aif)^:DisallowedIpV4Flow(?dif)^
+:usesFlow(?atf, ?aif)^:usesFlow(?dtf, ?dif)^
+:srcNetwork(?aif, ?srcNet)^:srcNetwork(?dif, ?srcNet)^
+:dstNetwork(?aif, ?dstNet)^:dstNetwork(?dif, ?dstNet)^
+:portRange(?atf, ?aPR)^:portRange(?dtf, ?dPR)^
+:overlapsWith(?aPR, ?dPR)-&gt;:inConflictWith(?dtf, ?atf)</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0o611qf</bpmn:incoming>
+      <bpmn:outgoing>Flow_0vijmqt</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_0o611qf" sourceRef="Activity_0h65d9i" targetRef="Activity_0z4djel" />
+    <bpmn:endEvent id="Event_1ubp3ps" name="End">
+      <bpmn:incoming>Flow_0vijmqt</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0vijmqt" sourceRef="Activity_0z4djel" targetRef="Event_1ubp3ps" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_064j4h6">
+      <bpmndi:BPMNEdge id="Flow_09evvey_di" bpmnElement="Flow_09evvey">
+        <di:waypoint x="215" y="117" />
+        <di:waypoint x="260" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0o611qf_di" bpmnElement="Flow_0o611qf">
+        <di:waypoint x="360" y="117" />
+        <di:waypoint x="410" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0vijmqt_di" bpmnElement="Flow_0vijmqt">
+        <di:waypoint x="510" y="117" />
+        <di:waypoint x="562" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="99" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="185" y="142" width="24" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0h65d9i_di" bpmnElement="Activity_0h65d9i">
+        <dc:Bounds x="260" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0z4djel_di" bpmnElement="Activity_0z4djel">
+        <dc:Bounds x="410" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1ubp3ps_di" bpmnElement="Event_1ubp3ps">
+        <dc:Bounds x="562" y="99" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="570" y="142" width="20" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

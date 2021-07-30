@@ -1,0 +1,58 @@
+<h1 mat-dialog-title>{{ts.name}}</h1>
+
+<div mat-dialog-content>
+    <div class="row">
+        <div class="col-4">
+            <b>ID:</b>
+        </div>
+        <div class="col">
+            {{ts.id}}
+        </div>
+    </div>
+
+    <div class="row mt-1">
+        <div class="col-4">
+            <b>Ontology Path:</b>
+        </div>
+        <div class="col">
+            {{ts.ontologyPath}}
+        </div>
+    </div>
+
+
+    <div class="row mt-1">
+        <div class="col-4">
+            <b>Tasks:</b>
+        </div>
+        <div class="col-7">
+            <div *ngFor="let task of ts.tasks" class="row">
+                <div class="col">
+                    {{task.id}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-1">
+        <div class="col-4">
+            <b>Ontologies:</b>
+        </div>
+        <div class="col">
+            <div *ngFor="let ontology of ts.ontologyDependencies" class="row">
+                <div class="col">
+                    {{ontology.id}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div mat-dialog-actions>
+    <div class="row mt-3 mb-3">
+        <div class="col-12 mx-auto">
+            <button mat-button (click)="close()">Close</button>
+            <button mat-button color='primary' (click)="edit()">Edit</button>
+        </div>
+    </div>
+</div>

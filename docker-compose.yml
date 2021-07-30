@@ -1,0 +1,24 @@
+version: '3.9'
+services:
+  symp-sme:
+    build: .
+    ports:
+      - "8544:8544"
+    container_name: symp-sme
+    environment:
+      PROFILE: prod
+    restart: unless-stopped
+    networks:
+      - symp
+
+  symp-sme-gui:
+    container_name: symp-sme-gui
+    build: ./sme-gui
+    networks:
+        - symp
+    restart: unless-stopped
+    
+networks:
+  symp:
+    external:
+      name: symp

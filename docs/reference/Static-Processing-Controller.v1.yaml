@@ -1,0 +1,89 @@
+openapi: 3.0.0
+info:
+  title: Static Processing Controller
+  version: '1.0'
+servers:
+  - url: 'http://localhost:8544/api'
+paths:
+  /targetsystem:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TargetSystem'
+      operationId: get-targetsystem
+  '/targetsystem/{id}':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TargetSystem'
+              examples:
+                example-1:
+                  value:
+                    id: 0
+                    name: string
+                    tasks:
+                      - id: string
+                    ontologyDependencies:
+                      - id: string
+                    ontologyPath: string
+        '404':
+          description: Not Found
+      operationId: get-targetsystem-id
+components:
+  schemas:
+    TargetSystem:
+      description: ''
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        tasks:
+          type: array
+          uniqueItems: false
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+            required:
+              - id
+        ontologyDependencies:
+          type: array
+          uniqueItems: true
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+            required:
+              - id
+        ontologyPath:
+          type: string
+      required:
+        - id
+        - name
+        - tasks
+        - ontologyDependencies

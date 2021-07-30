@@ -1,0 +1,67 @@
+include:
+  - remote: https://ci-templates.k8s.ilt-dmz.iosb.fraunhofer.de/templates/gitlab-ci-common.yml
+
+variables:
+  DOCKER_HOST: tcp://localhost:2375
+
+image: docker
+
+services:
+  - docker:18.09-dind
+
+default:
+  tags:
+    - ILT
+
+# Custom Job Definition
+.docker-frontend-build-master: &base_docker_build_latest
+  extends: .docker-build-frontend-common
+  only:
+    variables:
+      - $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+.docker-frontend-build-branch: &base_docker_build_branch
+  extends: .docker-build-frontend-common
+  except:
+    variables:
+      - $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+.docker-build-frontend-common:
+  stage: build
+  image: docker:latest
+  script:
+    - DOCKER_FILE_PATH_DEFAULT='./'
+    - DOCKER_FILE_DEFAULT='Dockerfile'
+    - DOCKER_FILE_PATH=${DOCKER_FILE_PATH:-$DOCKER_FILE_PATH_DEFAULT}
+    - DOCKER_FILE=${DOCKER_FILE:-$DOCKER_FILE_DEFAULT}
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+    - docker build --build-arg PROFILE=production --no-cache --pull -t "$DOCKER_IMAGE_NAME" -f "$DOCKER_FILE_PATH$DOCKER_FILE" "$DOCKER_FILE_PATH"
+    - docker push "$DOCKER_IMAGE_NAME"
+    
+sme-master:
+  variables:
+    DOCKER_FILE_PATH: ./
+    DOCKER_IMAGE_SUBPROJECT: /sme
+  extends:
+    - .docker-build-master
+
+sme-branch:
+  variables:
+    DOCKER_FILE_PATH: ./
+    DOCKER_IMAGE_SUBPROJECT: /sme
+  extends:
+    - .docker-build-branch
+
+sme-gui-master:
+  variables:
+    DOCKER_FILE_PATH: ./sme-gui/
+    DOCKER_IMAGE_SUBPROJECT: /sme-gui
+  extends:
+    - .docker-frontend-build-master
+
+sme-gui-branch:
+  variables:
+    DOCKER_FILE_PATH: ./sme-gui/
+    DOCKER_IMAGE_SUBPROJECT: /sme-gui
+  extends:
+    - .docker-frontend-build-branch
