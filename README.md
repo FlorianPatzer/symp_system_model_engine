@@ -52,3 +52,7 @@ To start the Engine outside Docker do the following:
 * The System Model Engine follows the OpenAPI specification. A Swagger documentation is available at `docs/reference/`.
 
 * Open the frontend and use it to create new target systems
+
+## Contributors
+* Nikolay Penkov <n.penkow@gmail.com>
+* Florian Patzer <florian.patzer@iosb.fraunhofer.de>
