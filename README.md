@@ -11,9 +11,7 @@ The SME is built as a Docker orchestration with the following frameworks:
 ## Getting Started
 This project is dependent on the following projects:
 
-* SyMP Camunda Platform
-* FTP Server
-* MYSQL Server 
+* [SyMP Base](https://gitlab-ext.iosb.fraunhofer.de/symp/symp-docker) 
 
 ### Prerequisites
 
@@ -43,7 +41,7 @@ To start the Engine outside Docker do the following:
     1. Navigate to `sme-gui` folder
     2. Run `npm install`
     3. Run `ng serve`
-    4. The frontend should be available at http://localhost:4200/#/home
+    4. The fronte end should be available at http://localhost:4200/#/home
 
 *Note: The env profiles are already configured and the service should work out of the box*
 
@@ -51,8 +49,4 @@ To start the Engine outside Docker do the following:
 
 * The System Model Engine follows the OpenAPI specification. A Swagger documentation is available at `docs/reference/`.
 
-* Open the frontend and use it to create new target systems
-
-## Contributors
-* Nikolay Penkov <n.penkow@gmail.com>
-* Florian Patzer <florian.patzer@iosb.fraunhofer.de>
+* The SME
